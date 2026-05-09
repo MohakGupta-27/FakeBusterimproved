@@ -1,103 +1,220 @@
-# Fake News Detection
+# Fake News Detection using Machine Learning & Ensemble Learning
 
-## Overview  
-The topic of fake news detection on social media has recently attracted tremendous attention. The basic countermeasure of comparing websites against a list of labeled fake news sources is inflexible, and so a machine learning approach is desirable.  Our project aims to use Natural Language Processing to detect fake news directly, based on the text content of news articles. 
+## Overview
 
-## Problem Definition
-Develop a machine learning program to identify when a news source may be producing fake news. We aim to use a corpus of labeled real and fake new articles to build a classifier that can make decisions about information based on the content from the corpus. The model will focus on identifying fake news sources, based on multiple articles originating from a source.  Once a source is labeled as a producer of fake news, we can predict with high confidence that any future articles from that source will also be fake news.  Focusing on sources widens our article misclassification tolerance, because we will have multiple data points coming from each source.  
+Fake news and misinformation on social media platforms have become a major global concern. This project presents a robust Fake News Detection System using Machine Learning, Natural Language Processing (NLP), and Ensemble Learning techniques to automatically classify news articles as **Real** or **Fake**.
 
-The intended application of the project is for use in applying visibility weights in social media.  Using weights produced by this model, social networks can make stories which are highly likely to be fake news less visible.
+The system applies advanced text preprocessing, TF-IDF feature extraction, and multiple classification models including:
 
-## Dataset Description
+- Naive Bayes
+- Support Vector Machine (SVM)
+- Feedforward Neural Network (FNN)
+- Long Short-Term Memory (LSTM)
+- Proposed Stacking Classifier (Random Forest + XGBoost + Logistic Regression)
 
-* train.csv: A full training dataset with the following attributes:
-  * id: unique id for a news article
-  * title: the title of a news article
-  * author: author of the news article
-  * text: the text of the article; could be incomplete
-  * label: a label that marks the article as potentially unreliable
-    * 1: unreliable
-    * 0: reliable
+The proposed Stacking Classifier achieved an accuracy of **99.81%**, outperforming all standalone models.
 
-* test.csv: A testing training dataset with all the same attributes at train.csv without the label.
+---
 
-## File Structure
-The file structure is the following
+# Features
 
+- Automated Fake News Classification
+- NLP-based Text Preprocessing
+- TF-IDF Feature Engineering
+- Comparative Analysis of ML & DL Models
+- Ensemble Learning using Stacking Classifier
+- Confusion Matrix Visualization
+- Accuracy & Performance Comparison Charts
+- Scalable architecture for real-world deployment
+
+---
+
+# Tech Stack
+
+## Programming Language
+- Python 3
+
+## Libraries & Frameworks
+- Pandas
+- NumPy
+- Scikit-learn
+- TensorFlow / Keras
+- NLTK
+- XGBoost
+- Matplotlib
+- Seaborn
+
+---
+
+# Dataset
+
+The dataset consists of two CSV files:
+
+| Dataset | Description |
+|---|---|
+| Fake.csv | 23,502 fake news articles |
+| True.csv | 21,417 true news articles |
+
+## Dataset Attributes
+- Title
+- Text
+- Subject
+- Date
+
+---
+
+# Project Workflow
+
+## 1. Data Preprocessing
+- Convert text to lowercase
+- Remove punctuation and special characters
+- Remove extra whitespaces
+- Merge article title and content
+- Text cleaning and normalization
+
+## 2. Feature Extraction
+TF-IDF Vectorization is used to convert textual content into numerical feature vectors.
+
+## 3. Model Training
+
+### Classical ML Models
+- Naive Bayes
+- Support Vector Machine (SVM)
+
+### Deep Learning Models
+- Feedforward Neural Network (FNN)
+- LSTM Network
+
+### Proposed Ensemble Model
+- Random Forest
+- XGBoost
+- Logistic Regression (Meta Learner)
+- Stacking Classifier
+
+## 4. Evaluation Metrics
+- Accuracy
+- Precision
+- Recall
+- F1-Score
+- Confusion Matrix
+
+---
+
+# Model Performance
+
+| Model | Accuracy | F1-Score |
+|---|---|---|
+| Stacking Classifier | 99.81% | 99.81% |
+| SVM | 99.43% | 99.41% |
+| Feedforward Neural Network | 99.22% | 99.19% |
+| Naive Bayes | 95.62% | 95.42% |
+| LSTM | 90.94% | 89.59% |
+
+---
+
+# Proposed Stacking Architecture
+
+The core innovation of this project is the **Stacking Classifier Ensemble Model**.
+
+## Base Learners
+- Random Forest Classifier
+- XGBoost Classifier
+
+## Meta Learner
+- Logistic Regression
+
+The ensemble approach combines the strengths of multiple models to improve prediction robustness and reduce misclassification.
+
+---
+
+# Results
+
+- Achieved **99.81% accuracy**
+- Only **17 misclassifications** on the test dataset
+- Better generalization than standalone models
+- High precision and recall for both fake and real news detection
+
+---
+
+# Future Enhancements
+
+- Integration with BERT and Transformer models
+- Multilingual fake news detection
+- Real-time social media monitoring
+- Multimodal detection using images/videos
+- Explainable AI for model transparency
+- Adversarial fake news detection
+
+---
+
+# Repository Structure
+
+```bash
+Fake-News-Detection/
+│
+├── dataset/
+│   ├── Fake.csv
+│   └── True.csv
+│
+├── notebooks/
+│   └── fake_news_detection.ipynb
+│
+├── models/
+│   └── saved_models/
+│
+├── outputs/
+│   ├── confusion_matrix/
+│   └── accuracy_graphs/
+│
+├── requirements.txt
+├── README.md
+└── app.py
 ```
-.
-|
-+-- datasets
-|   +-- train.csv
-|   +-- test.csv
-+-- images
-|   +-- svm-cm.png
-|   +-- naive-bayes-cm.png
-|   +-- neural-net-tf.png
-|   +-- neural-net-keras.png
-|   +-- lstm-cm.png
-+-- *.py
+
+---
+
+# Installation
+
+```bash
+git clone https://github.com/your-username/Fake-News-Detection.git
+cd Fake-News-Detection
 ```
 
-## Try It Out
+Install dependencies:
 
-1. Clone the repo to your local machine-  
-`> git clone git://github.com/FakeNewsDetection/FakeBuster.git`  
-`> cd FakeBuster`
+```bash
+pip install -r requirements.txt
+```
 
-2. Make sure you have all the dependencies installed-  
- * python 3.6+
- * numpy
- * tensorflow
- * gensim
- * pandas
- * keras
- * matplotlib
- * scikitplot
- * sklearn
- * nltk
-   * For nltk, we recommend typing `python.exe` in your command line which will take you to the Python interpretor.  
-     * Then, enter-
-       * `>>> import nltk`
-       * `>>> nltk.download()`
-    
-3. You're good to go now-  
-`> python svm.py`
+Run the project:
 
-## Comparing Accuracies of Models
+```bash
+python app.py
+```
 
-| Model                     | Accuracy     |
-|:-------------------------:|:------------:|
-| Naive Bayes               | 72.94%       |
-| SVM                       | 88.42%       |
-| Neural Network with TF    | 81.42%       |
-| Neural Network with Keras | 92.62%       |
-| LSTM                      | 94.53%       |
+---
 
-## Confusion Matrices
+# Key Learning Outcomes
 
-* Naive Bayes
+- Applied NLP techniques for text classification
+- Built and evaluated multiple ML/DL models
+- Implemented Ensemble Learning using Stacking
+- Performed comparative analysis of classification algorithms
+- Improved understanding of misinformation detection systems
 
-![](images/naive-bayes-cm.png)
+---
 
-* SVM
+# Contributors
 
-![](images/svm-cm.png)
+- Mohak Gupta — Model Development & Comparative Analysis
+- Shreya Gupta — PPT & Research Work
+- Shaan Mathur — Literature Review & Documentation
 
-* Neural Network with TensorFlow
+---
 
-![](images/neural-net-tf.png)
+# References
 
-* Neural Network with Keras
-
-![](images/neural-net-keras.png)
-
-* LSTM
-
-![](images/lstm-cm.png)
-
-## References
-  * [Fake news detection: A Data Mining perspective](https://arxiv.org/pdf/1708.01967.pdf)
-  * [Fake News Identification - Stanford CS229](http://cs229.stanford.edu/proj2017/final-reports/5244348.pdf)
-  * [B.S. Detector](https://github.com/bs-detector/bs-detector)
-  * [Datasets from Kaggle](https://www.kaggle.com/c/fake-news/data)
+- Kaggle Fake News Dataset
+- Scikit-learn Documentation
+- TensorFlow Documentation
+- Research papers on Fake News Detection, NLP, and Ensemble Learning
